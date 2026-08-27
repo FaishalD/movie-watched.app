@@ -16,8 +16,13 @@ export default function SearchModal() {
   const [selected, setSelected] = useState<Movie | null>(null);
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState("8");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Set tanggal bawaan hanya di sisi Client untuk menghindari Hydration Error
+  useEffect(() => {
+    setDate(new Date().toISOString().split("T")[0]);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
@@ -28,7 +33,11 @@ export default function SearchModal() {
 
       setLoading(true);
       try {
-        setResults(await searchTMDB(query));
+        const res = await searchTMDB(query);
+        setResults(res || []);
+      } catch (err) {
+        console.error("Search error:", err);
+        setResults([]);
       } finally {
         setLoading(false);
       }
@@ -46,6 +55,8 @@ export default function SearchModal() {
       setQuery("");
       setOpen(false);
       window.location.reload();
+    } catch (err) {
+      console.error("Failed to add movie:", err);
     } finally {
       setLoading(false);
     }
