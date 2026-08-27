@@ -94,7 +94,7 @@ export default function SearchModal() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search movie..."
-                  className="w-full rounded-lg border p-3 outline-none focus:border-[#D4AF37]"
+                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-slate-900 placeholder-gray-400 outline-none focus:border-[#D4AF37] focus:text-slate-900 focus:bg-white"
                 />
 
                 <div className="mt-3 max-h-80 overflow-y-auto">
@@ -165,7 +165,7 @@ export default function SearchModal() {
                 </div>
 
                 <label className="block">
-                  <span className="mb-1 block text-sm font-medium">
+                  <span className="mb-1 block text-sm text-slate-900 font-medium">
                     My Rating
                   </span>
                   <input
@@ -176,13 +176,13 @@ export default function SearchModal() {
                     step="0.1"
                     value={rating}
                     onChange={(e) => setRating(e.target.value)}
-                    className="w-full rounded-lg border p-3"
+                    className="w-full rounded-lg border border-gray-300 bg-white p-3 text-slate-900 outline-none focus:border-[#D4AF37]"
                     required
                   />
                 </label>
 
                 <label className="block">
-                  <span className="mb-1 block text-sm font-medium">
+                  <span className="mb-1 block text-sm text-slate-900 font-medium">
                     Watched Date
                   </span>
                   <input
@@ -190,7 +190,7 @@ export default function SearchModal() {
                     name="watched_date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    className="w-full rounded-lg border p-3"
+                    className="w-full rounded-lg border border-gray-300 bg-white p-3 text-slate-900 outline-none focus:border-[#D4AF37]"
                     required
                   />
                 </label>
