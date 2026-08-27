@@ -1,6 +1,9 @@
 import SearchModal from "@/components/SearchModal";
 import MovieGrid from "@/components/MovieGrid";
 import { getWatchedMovies } from "./actions";
+import { supabase } from "../lib/Supabase";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const movies = await getWatchedMovies();
@@ -34,4 +37,23 @@ export default async function Home() {
       </section>
     </main>
   );
+}
+
+export async function getWatchedMovies() {
+  try {
+    const { data, error } = await supabase
+      .from("watched_movies")
+      .select("*")
+      .order("watched_date", { ascending: false });
+
+    if (error) {
+      console.error("Supabase Error:", error.message);
+      return [];
+    }
+
+    return data ?? [];
+  } catch (err) {
+    console.error("Fetch Exception:", err);
+    return []; // Return array kosong jika fetch gagal saat build
+  }
 }
